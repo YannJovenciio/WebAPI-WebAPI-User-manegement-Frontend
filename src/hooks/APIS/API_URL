@@ -1,0 +1,8 @@
+const User_BASE_URL = "http://localhost:5267/User";
+
+export const API_User_URL = {
+  AddUser: User_BASE_URL + "AddUser",
+  GetUser: User_BASE_URL + "/GetUser?Page=",
+  DeleteUser: User_BASE_URL + "/DeleteUser",
+};
+

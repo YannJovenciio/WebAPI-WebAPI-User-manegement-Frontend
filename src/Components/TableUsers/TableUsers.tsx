@@ -9,15 +9,15 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
-import type { UserResponse } from "../../test/UserResponse";
+import type { UserResponse } from "../../hooks/User/UserResponse";
 
 interface TableProps {
   Names?: UserResponse[];
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 export const TableUsers: React.FC<TableProps> = ({ Names, isLoading }) => {
-  const users = Array.isArray(Names) ? Names: [];
+  const users = Array.isArray(Names) ? Names : [];
 
   return (
     <Box sx={{ padding: 3 }}>
@@ -54,10 +54,9 @@ export const TableUsers: React.FC<TableProps> = ({ Names, isLoading }) => {
                 </TableCell>
               </TableRow>
             ) : (
-              
               users.map((user, index) => (
                 <TableRow
-                  key={index}
+                  key={user.name + user.email}
                   sx={{
                     "&:nth-of-type(even)": { backgroundColor: "action.hover" },
                     "&:hover": { backgroundColor: "action.selected" },

@@ -1,7 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App";
+import "./i18n/i18n";
+
 
 // 1. Criar o cliente do React Query
 const queryClient = new QueryClient({
@@ -14,11 +17,13 @@ const queryClient = new QueryClient({
   },
 });
 
-// 2. Envolver sua aplicação com o Provider
+// 2. Envolver sua aplicação com os Providers
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );

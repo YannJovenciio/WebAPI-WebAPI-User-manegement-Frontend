@@ -10,21 +10,35 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
+import type { ChangeEventHandler } from "react";
+
+interface Field {
+  placeHolder?: string;
+  type?: string;
+  onChange?: ChangeEventHandler;
+  value?: string;
+}
 
 interface TableProps {
   title?: string;
-  firstPlaceHolder?: string;
-  secondPlaceHolder?: string;
-  extraField?: boolean;
-  inputType: string;
+  placeHolder?: string;
+  inputType?: string;
+  ButtonText?: string;
+  value?: string;
+  fields?: Field[];
+  onChangeValue?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClick?: () => any;
 }
 
-export const InsertUsers: React.FC<TableProps> = ({
-  firstPlaceHolder = "Insert your name",
+export const TableForm: React.FC<TableProps> = ({
   title,
-  secondPlaceHolder = "password",
-  extraField = "Insert your password",
-  inputType: Type,
+  placeHolder,
+  inputType,
+  ButtonText,
+  value,
+  onClick,
+  onChangeValue,
+  fields,
 }) => {
   return (
     <Box sx={{ padding: 3 }}>
@@ -46,18 +60,25 @@ export const InsertUsers: React.FC<TableProps> = ({
               <TableCell>
                 <TableContainer sx={{ display: "flex", gap: "2%" }}>
                   <TextField
-                    placeholder={firstPlaceHolder}
-                    type={Type}
-                  ></TextField>
-                  {extraField ? (
-                    <>
-                      <TextField placeholder={secondPlaceHolder} type={Type}></TextField>
-                    </>
-                  ) : (
-                    ""
-                  )}
-                  <Button variant="contained" endIcon={<SendIcon/>}>
-                    Send
+                    placeholder={placeHolder}
+                    type={inputType}
+                    value={value}
+                    onChange={onChangeValue}
+                  />
+                  {fields &&
+                    fields.map((f) => (
+                      <TextField placeholder={f.placeHolder}
+                      type={f.type}
+                      value={f.value}
+                      onChange={f.onChange}
+                      ></TextField>
+                    ))}
+                  <Button
+                    variant="contained"
+                    endIcon={<SendIcon />}
+                    onClick={() => onClick && onClick()}
+                  >
+                    {ButtonText}
                   </Button>
                 </TableContainer>
               </TableCell>
